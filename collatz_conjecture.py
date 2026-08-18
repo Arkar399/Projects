@@ -30,15 +30,49 @@ for num in real_number_list:
 
 x = list(set(x))
 
+# to find longest sequence and peak
+peak = 0
+lengths = []
+
+for y in ys:
+    for y_value in y:
+        if y_value > peak:
+            peak = y_value
+
+    length = 0
+
+    for end in y:
+        if end == 4:
+            break
+        length += 1
+
+    lengths.append(length)
+
+largest = lengths[0]
+
+for length in lengths:
+    if length > largest:
+        largest = length
+        largest_index = lengths.index(length)
+    else:
+        largest_index = lengths.index(lengths[0])
+
+print(f"{real_number_list[largest_index]} terminated last")
+print(f"{int(peak)} was the highest value reached")
+
 #--------------------------------------------------------------------
 
-plt.title(f"Collatz Conjecture ({iterations} iterations)", family="Arial",
+plt.title(f"Collatz Conjecture ({iterations} iterations)", family="Tahoma",
                                 fontweight="bold")
 
 for idx, y in enumerate(ys):
     plt.plot(x, y, label=real_number_list[idx])
 
 plt.grid("both", alpha=0.3)
+plt.xlabel("Iteration")
+plt.ylabel("Value")
+plt.ylim(0, 1.05*peak)
+
 plt.legend()
 plt.tight_layout()
 
