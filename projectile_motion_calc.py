@@ -5,6 +5,9 @@ import numpy as np
 
 planets = [["Earth", 9.81], ["Moon", 1.62], ["Mars", 3.72], ["Jupiter", 24.79]]
 
+def submit():
+    pass
+
 def set_grav():
     scale1.set(planets[x.get()][1])
 
@@ -12,6 +15,7 @@ def graph(val):
     ax.clear()
 
     g = scale1.get()
+
     u = scale2.get()
     theta_degrees = scale3.get()
     theta = np.radians(theta_degrees)
@@ -35,7 +39,22 @@ def graph(val):
 
     ax.plot(x, y)
 
-    text_var.set(f"Max Height: {round(hp, 2)}m | Range: {round(range, 2)}m | Air time: {round(t, 2)}s")
+
+
+    # rounding to 3 sf
+    hp = round(hp, 2)
+    if len(str(hp)) > 4:
+        hp = round(hp, 1)
+
+    range = round(range, 2)
+    if len(str(range)) > 4:
+        range = round(range, 1)
+
+    t = round(t, 2)
+    if len(str(t)) > 4:
+        t = round(t, 1)
+
+    text_var.set(f"Max Height: {hp}m | Range: {range}m | Air time: {t}s")
 
     canvas.draw()
 
@@ -44,7 +63,6 @@ root = tk.Tk()
 root.title("Tkinter x Matplotlib")
 
 fig, ax = plt.subplots(figsize=(8, 5))
-# ax = fig.add_subplot()
 
 ax.set_xlim(0, 1000)
 ax.set_ylim(0, 1000)
@@ -96,5 +114,12 @@ for i in range(len(planets)):
                                   font=("Consolas", 15), command=set_grav, indicatoron=0)
 
     radio_button.pack(side="left")
+
+entry = tk.Entry(frame, font=("Consolas", 20), fg="white", bg="black")
+entry.pack(anchor="e")
+
+submit_button = tk.Button(frame, text="Flip", command=submit)
+submit_button.pack(anchor="e")
+
 
 root.mainloop()
