@@ -6,7 +6,10 @@ import numpy as np
 planets = [["Earth", 9.81], ["Moon", 1.62], ["Mars", 3.72], ["Jupiter", 24.79]]
 
 def submit_with_enter(event):
-    text = [entry1.get(), entry2.get(), entry3.get(), entry4.get()]
+    text = []
+    for entry in entries:
+        text.append(entry.get())
+
     scale1.set(float(text[0]))
     scale2.set(float(text[1]))
     scale3.set(float(text[2]))
@@ -67,7 +70,7 @@ def graph(val):
 
 # initialize Tkinter
 root = tk.Tk()
-root.title("Tkinter x Matplotlib")
+root.title("Projectile Trajectory Calculator")
 
 fig, ax = plt.subplots(figsize=(9, 5))
 
@@ -130,24 +133,17 @@ for i in range(len(planets)):
 
     radio_button.pack(side="left")
 
-entry1 = tk.Entry(frame, font=("Consolas", 12), width=20)
-entry1.insert(0, "0")
-entry1.pack(anchor="ne", pady=2)
-entry1.bind("<Return>", submit_with_enter)
+entry_label = tk.Label(frame, font=("Consolas", 12), text="Enter exact values")
+entry_label.pack(anchor="ne")
 
-entry2 = tk.Entry(frame, font=("Consolas", 12), width=20)
-entry2.insert(0, "0")
-entry2.pack(anchor="ne", pady=2)
-entry2.bind("<Return>", submit_with_enter)
+entries = []
 
-entry3 = tk.Entry(frame, font=("Consolas", 12), width=20)
-entry3.insert(0, "0")
-entry3.pack(anchor="ne", pady=2)
-entry3.bind("<Return>", submit_with_enter)
+for i in range(4):
+    entry = tk.Entry(frame, font=("Consolas", 12), width=20)
+    entry.insert(0, "0")
+    entry.pack(anchor="e", pady=2)
+    entry.bind("<Return>", submit_with_enter)
+    entries.append(entry)
 
-entry4 = tk.Entry(frame, font=("Consolas", 12), width=20)
-entry4.insert(0, "0")
-entry4.pack(anchor="ne", pady=2)
-entry4.bind("<Return>", submit_with_enter)
 
 root.mainloop()
